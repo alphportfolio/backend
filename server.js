@@ -62,15 +62,29 @@ function buildAuth() {
   }
 
   // Local dev — key file path
-const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+function buildAuth() {
+  const rawJson = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
 
-const auth = new GoogleAuth({
-  credentials,
-  scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-});
+  if (rawJson) {
+    let credentials;
+    try {
+      credentials = JSON.parse(rawJson);
+    } catch (e) {
+      console.error('FATAL: GOOGLE_SERVICE_ACCOUNT_JSON invalid JSON:', e.message);
+      process.exit(1);
+    }
+
+    return new GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+    });
+  }
+
+  console.error('FATAL: No credentials found');
+  process.exit(1);
+}
 
 const auth = buildAuth();
-
 // ─────────────────────────────────────────────────────────────────────────────
 // EXPRESS
 // ─────────────────────────────────────────────────────────────────────────────
