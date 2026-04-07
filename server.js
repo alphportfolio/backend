@@ -148,7 +148,13 @@ app.post('/tts', async (req, res) => {
 // ─────────────────────────────────────────────
 // HEALTH CHECK  (useful for deployment)
 // ─────────────────────────────────────────────
-app.get('/health', (_req, res) => res.json({ status: 'ok' }));
+app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 
 // ─────────────────────────────────────────────
 // PCM base64 → WAV Buffer
