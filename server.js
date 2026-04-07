@@ -60,7 +60,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json({ limit: '64kb' }));
 
 // CORS: in dev allow localhost; in production lock this down to your domain
-const PORT = process.env.PORT;
 
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
