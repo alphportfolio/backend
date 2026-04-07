@@ -247,4 +247,11 @@ app.post('/ocr', async (req, res) => {
     console.error('[OCR] Unexpected error:', err);
     res.status(500).json({ error: 'Internal server error.' });
   }
+  app.get("/", (req, res) => {
+  res.send("Backend is running 🚀");
+});
+
+app.get("/api/health", (req, res) => {
+  res.json({ status: "ok" });
+});
 });
