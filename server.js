@@ -62,13 +62,12 @@ function buildAuth() {
   }
 
   // Local dev — key file path
-  const keyFile = process.env.GOOGLE_APPLICATION_CREDENTIALS || './service-account.json';
-  console.log(`[auth] Using key file: ${keyFile}`);
-  return new GoogleAuth({
-    keyFilename: keyFile,
-    scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-  });
-}
+const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+
+const auth = new GoogleAuth({
+  credentials,
+  scopes: ['https://www.googleapis.com/auth/cloud-platform'],
+});
 
 const auth = buildAuth();
 
