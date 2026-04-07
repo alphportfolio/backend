@@ -27,9 +27,14 @@ const ALLOWED_VOICES = new Set([
   'Vindemiatrix','Sadachbia','Sulafat','Sadalbari',
 ]);
 
+const credentials = process.env.GOOGLE_APPLICATION_CREDENTIALS
+  ? JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS)
+  : null;
+
 const auth = new GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/cloud-platform'],
-  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS || './service-account.json',
+  credentials: credentials || undefined,
+  keyFilename: credentials ? undefined : './service-account.json',
 });
 
 // ─────────────────────────────────────────────
